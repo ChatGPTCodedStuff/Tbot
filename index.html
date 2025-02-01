@@ -26,7 +26,7 @@
             chatbox.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
             document.getElementById("userInput").value = "";
             
-            // Simple AI response
+            // Generate bot response
             let response = getBotResponse(input);
             chatbox.innerHTML += `<p><strong>Bot:</strong> ${response}</p>`;
             chatbox.scrollTop = chatbox.scrollHeight;
@@ -34,9 +34,27 @@
 
         function getBotResponse(input) {
             input = input.toLowerCase();
-            if (input.includes("hello")) return "Hello! How can I assist you?";
-            if (input.includes("how are you")) return "I'm just a bot, but I'm doing great!";
-            if (input.includes("your name")) return "I'm a simple chatbot.";
+
+            // Attempt to evaluate math expressions
+            try {
+                let result = eval(input);
+                if (!isNaN(result)) return `The answer is: ${result}`;
+            } catch (error) {}
+
+            const responses = {
+                "hello": "Hello! How can I assist you?",
+                "how are you": "I'm just a bot, but I'm doing great!",
+                "your name": "I'm a simple chatbot.",
+                "bye": "Goodbye! Have a great day!",
+                "thanks": "You're welcome!"
+            };
+
+            for (let key in responses) {
+                if (input.includes(key)) {
+                    return responses[key];
+                }
+            }
+
             return "I'm not sure how to respond to that.";
         }
     </script>
