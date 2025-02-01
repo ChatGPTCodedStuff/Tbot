@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #chatbox { width: 80%; height: 300px; border: 1px solid #ccc; padding: 10px; overflow-y: auto; margin: 20px auto; }
+        #userInput { width: 70%; padding: 10px; }
+        button { padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Simple AI Chatbot</h1>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+    
+    <script>
+        function sendMessage() {
+            let input = document.getElementById("userInput").value;
+            if (!input) return;
+            
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+            document.getElementById("userInput").value = "";
+            
+            // Simple AI response
+            let response = getBotResponse(input);
+            chatbox.innerHTML += `<p><strong>Bot:</strong> ${response}</p>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function getBotResponse(input) {
+            input = input.toLowerCase();
+            if (input.includes("hello")) return "Hello! How can I assist you?";
+            if (input.includes("how are you")) return "I'm just a bot, but I'm doing great!";
+            if (input.includes("your name")) return "I'm a simple chatbot.";
+            return "I'm not sure how to respond to that.";
+        }
+    </script>
+</body>
+</html>
